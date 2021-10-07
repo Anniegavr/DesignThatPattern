@@ -1,13 +1,10 @@
-import Client.Client;
-import Factories.Abstractions.IRecommFactory;
-import Factories.ConcreteImpl.BodyActivity.BodyActivityRecommFactory;
-import Factories.ConcreteImpl.Watch.Anime;
-import Factories.ConcreteImpl.Watch.WatchRecommFactory;
+import client.Client;
+import factories.abstractions.IRecommFactory;
+import factories.concrete_implementation.BodyActivity.BodyActivityRecommFactory;
+import factories.concrete_implementation.Watch.WatchRecommFactory;
 
 import java.util.Scanner;
-
 public class Main {
-
     public enum RecommOptions {
         Shorter,
         Multitask,
@@ -20,13 +17,9 @@ public class Main {
         Watch
     }
 
-
-
     public static void main(String[] args) {
         Client currentClient = Client.getClient();
         System.out.println(String.format("Creating a recommendation for {}.\n You're logged in as: {}",recommend().getClass(), currentClient));
-
-
     }
 
     private static IRecommFactory recommend() {

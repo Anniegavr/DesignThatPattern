@@ -1,7 +1,6 @@
-package Factories.ConcreteImpl.BodyActivity;
+package factories.concrete_implementation.BodyActivity;
 
-import Factories.Abstractions.IBodyActivity;
-import Factories.Abstractions.IRecommFactory;
+import factories.abstractions.IBodyActivity;
 
 public class Running extends BodyActivityRecommFactory implements IBodyActivity {
     String name;

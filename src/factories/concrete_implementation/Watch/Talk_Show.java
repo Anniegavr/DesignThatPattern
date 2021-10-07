@@ -1,8 +1,8 @@
-package Factories.ConcreteImpl.Watch;
-import Factories.Abstractions.IWatchActivity;
+package factories.concrete_implementation.Watch;
 
+import factories.abstractions.IWatchActivity;
 
-public class Anime extends WatchRecommFactory implements IWatchActivity {
+public class Talk_Show extends WatchRecommFactory implements IWatchActivity {
     public String getName() {
         return name;
     }
@@ -23,7 +23,9 @@ public class Anime extends WatchRecommFactory implements IWatchActivity {
     String genres;
     @Override
     public String returnRecommendation(){
-     //some function to return data from dataset
+        //some function to return data from dataset
         return "Name: ...\nGenres: ...";
     }
+
+
 }

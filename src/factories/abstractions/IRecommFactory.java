@@ -1,4 +1,4 @@
-package Factories.Abstractions;
+package factories.abstractions;
 
 public abstract class IRecommFactory{
 

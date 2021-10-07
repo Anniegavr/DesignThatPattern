@@ -1,21 +1,21 @@
-package Factories.ConcreteImpl.Watch;
+package factories.concrete_implementation.Watch;
 
-import Factories.Abstractions.IRecommFactory;
+import factories.abstractions.IRecommFactory;
 
 public class WatchRecommFactory extends IRecommFactory{
 
     public IRecommFactory findRecommendation(int option) {
         IRecommFactory watchRecommendation = null;
         switch (option) {
-            case 0:
+            case 0: //Multitask
                 watchRecommendation = new Talk_Show();
                 break;
 
-            case 1:
+            case 1: //Shorter activity
                 watchRecommendation = new Anime();
                 break;
 
-            case 2:
+            case 2:  //Longer activity
                 watchRecommendation = new TV_Series();
                 break;
 
@@ -30,7 +30,4 @@ public class WatchRecommFactory extends IRecommFactory{
     public String returnRecommendation() {
         return null;
     }
-
-//    @Override
-//    public abstract String returnRecommendation();
 }

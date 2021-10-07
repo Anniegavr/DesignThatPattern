@@ -1,8 +1,8 @@
-package Factories.ConcreteImpl.BodyActivity;
+package factories.concrete_implementation.BodyActivity;
 
-import Factories.Abstractions.IBodyActivity;
+import factories.abstractions.IBodyActivity;
 
-public class Hiking extends BodyActivityRecommFactory implements IBodyActivity {
+public class WalkWithFriends extends BodyActivityRecommFactory implements IBodyActivity {
     String name;
     String duration;
     public String getName() {

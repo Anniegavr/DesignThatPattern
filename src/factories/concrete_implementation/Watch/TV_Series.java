@@ -1,11 +1,8 @@
-package Factories.ConcreteImpl.Watch;
+package factories.concrete_implementation.Watch;
 
-import Factories.Abstractions.IRecommFactory;
-import Factories.Abstractions.IWatchActivity;
+import factories.abstractions.IWatchActivity;
 
-import java.util.List;
-
-public class Talk_Show extends WatchRecommFactory implements IWatchActivity {
+public class TV_Series extends WatchRecommFactory implements IWatchActivity {
     public String getName() {
         return name;
     }

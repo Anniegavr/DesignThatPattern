@@ -1,6 +1,6 @@
-package Factories.ConcreteImpl.BodyActivity;
+package factories.concrete_implementation.BodyActivity;
 
-import Factories.Abstractions.IRecommFactory;
+import factories.abstractions.IRecommFactory;
 
 public class BodyActivityRecommFactory extends IRecommFactory{
 
@@ -11,15 +11,15 @@ public class BodyActivityRecommFactory extends IRecommFactory{
                 bodyRecommendation = new WalkWithFriends();
                 break;
 
-            case 1:
+            case 1:  //Multitask
                 bodyRecommendation = new Running();
                 break;
 
-            case 3:
+            case 3:  //Shorter activity
                 bodyRecommendation = new Hiking();
                 break;
 
-            default:
+            default:  //Longer activity
                 System.out.println("Select an option for duration");
                 break;
         }

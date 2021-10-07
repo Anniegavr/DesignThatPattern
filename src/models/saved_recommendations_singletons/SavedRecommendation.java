@@ -1,4 +1,4 @@
-package Models.Saved;
+package models.saved_recommendations_singletons;
 
 
 public class SavedRecommendation {
