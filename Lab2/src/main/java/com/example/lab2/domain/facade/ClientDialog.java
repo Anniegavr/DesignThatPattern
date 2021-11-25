@@ -11,6 +11,8 @@ import com.example.lab2.domain.security.services.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
@@ -22,9 +24,11 @@ public class ClientDialog {
     private final ClientService clientService;
     private final RecommendationsRepository recommendationsRepository;
 
+
+    @Transactional
     public void recommend(){
         IRecommFactory iRecommFactory;
-        String recommendationAnswer = null;
+        List<?> recommendationAnswer = null;
         Scanner sc = new Scanner(System.in);
         System.out.println("Choose a type of activity:" +
                 "\n1.Activity involving the body\n2.Watch something");

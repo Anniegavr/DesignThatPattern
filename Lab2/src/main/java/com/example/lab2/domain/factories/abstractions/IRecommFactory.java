@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class IRecommFactory{
 
-    public abstract List<TVSeries> returnRecommendation();
+    public abstract List<?> returnRecommendation();
 
 
 }

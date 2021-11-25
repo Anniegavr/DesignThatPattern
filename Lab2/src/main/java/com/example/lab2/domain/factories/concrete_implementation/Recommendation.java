@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,15 +28,13 @@ public class Recommendation {
     @Id
     @Column(nullable = false)
     private Long recommendationId;
-
-    public Recommendation(Long clientId, String clientUsername, String recommendation) {
-        this.clientId = clientId;
-        this.clientUsername = clientUsername;
-        this.recommendation = recommendation;
-    }
-
     private Long clientId;
     private String clientUsername;
     private String recommendation;
 
+    public Recommendation(Long clientId, String clientUsername, List<?> recommendation) {
+        this.clientId = clientId;
+        this.clientUsername = clientUsername;
+        this.recommendation = recommendation.toString();
+    }
 }

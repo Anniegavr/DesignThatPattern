@@ -33,8 +33,8 @@ public class Anime extends WatchRecommFactory implements IWatchActivity {
     String name;
     String genres;
     @Override
-    public List<TVSeries> returnRecommendation(){
+    public List<Anime> returnRecommendation(){
         AnimeService as = new AnimeService();
-        return as.findMatch().toString();
+        return as.findMatch();
     }
 }

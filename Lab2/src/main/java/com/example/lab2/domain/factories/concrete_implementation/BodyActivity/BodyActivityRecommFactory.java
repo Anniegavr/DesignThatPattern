@@ -39,7 +39,7 @@ public class BodyActivityRecommFactory extends IRecommFactory {
     }
 
     @Override
-    public List<TVSeries> returnRecommendation() {
+    public List<?> returnRecommendation() {
         return null;
     }
 

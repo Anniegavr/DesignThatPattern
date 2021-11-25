@@ -14,5 +14,4 @@ public abstract class CSVHandler {
 
     public abstract List<?> parseCSV(InputStream is);
 
-
 }
