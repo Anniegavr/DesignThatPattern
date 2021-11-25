@@ -1,8 +1,6 @@
 package com.example.lab2.domain.factories.concrete_implementation.Watch;
 
-
 import com.example.lab2.domain.factories.abstractions.IWatchActivity;
-import com.example.lab2.domain.security.services.AnimeService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,24 +15,26 @@ import java.util.List;
 @AllArgsConstructor
 @Table
 @Entity
-public class Anime extends WatchRecommFactory implements IWatchActivity {
-//    @SequenceGenerator(
-//            name = "anime_sequence",
-//            sequenceName = "anime_sequence",
-//            allocationSize = 1
-//    )
-//    @GeneratedValue(
-//            strategy = GenerationType.SEQUENCE,
-//            generator = "anime_sequence"
-//    )
+public class TalkShow extends WatchRecommFactory implements IWatchActivity {
+    @SequenceGenerator(
+            name = "client_sequence",
+            sequenceName = "client_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "client_sequence"
+    )
     @Id
     @Column(nullable = false)
-    Long animeId;
+    Long talkId;
     String name;
     String genres;
     @Override
     public List<TVSeries> returnRecommendation(){
-        AnimeService as = new AnimeService();
-        return as.findMatch().toString();
+        //some function to return data from dataset
+        return "Name: ...\nGenres: ...";
     }
+
+
 }

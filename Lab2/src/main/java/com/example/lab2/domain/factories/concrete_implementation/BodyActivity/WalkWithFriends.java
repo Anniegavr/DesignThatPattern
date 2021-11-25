@@ -1,12 +1,14 @@
 package com.example.lab2.domain.factories.concrete_implementation.BodyActivity;
 
 import com.example.lab2.domain.factories.abstractions.IBodyActivity;
+import com.example.lab2.domain.factories.concrete_implementation.Watch.TVSeries;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,8 +33,8 @@ public class WalkWithFriends extends BodyActivityRecommFactory implements IBodyA
     String duration;
 
     @Override
-    public String returnRecommendation(){
-        //some function to return data from dataset
-        return "Name: ...\nLevel of difficulty: ...";
+    public List<TVSeries> returnRecommendation(){
+        return "How about taking a long walk with your friends?\n" +
+                "You can walk through the park or even go somewhere to enjoy a breath-taking sight together.";
     }
 }

@@ -1,30 +1,31 @@
 package com.example.lab2.domain.factories.concrete_implementation.Watch;
 
 import com.example.lab2.domain.factories.abstractions.IRecommFactory;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class WatchRecommFactory extends IRecommFactory {
 
-    public IRecommFactory findRecommendation(int option) {
+    public IRecommFactory findRecommendation(String option) {
         IRecommFactory watchRecommendation = null;
         switch (option) {
-            case 0: //Multitask
-                watchRecommendation = new Talk_Show();
+            case "1": //Multitask
+                watchRecommendation = new TalkShow();
                 break;
 
-            case 1: //Shorter activity
+            case "2": //Shorter activity
                 watchRecommendation = new Anime();
                 break;
 
-            case 2:  //Longer activity
-                watchRecommendation = new TV_Series();
+            case "3":  //Longer activity
+                watchRecommendation = new TVSeries();
                 break;
 
             default:
@@ -35,7 +36,7 @@ public class WatchRecommFactory extends IRecommFactory {
     }
 
     @Override
-    public String returnRecommendation() {
+    public List<TVSeries> returnRecommendation() {
         return null;
     }
 }

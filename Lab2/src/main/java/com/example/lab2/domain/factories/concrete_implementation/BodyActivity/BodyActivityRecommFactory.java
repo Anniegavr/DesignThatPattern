@@ -1,33 +1,37 @@
 package com.example.lab2.domain.factories.concrete_implementation.BodyActivity;
 
 import com.example.lab2.domain.factories.abstractions.IRecommFactory;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.lab2.domain.factories.concrete_implementation.Watch.TVSeries;
+import lombok.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@RestController
+@RequestMapping("/api/body_activity")
+@RequiredArgsConstructor
 public class BodyActivityRecommFactory extends IRecommFactory {
 
-    public IRecommFactory findRecommendation(int option) {
+    public IRecommFactory createRecommendationType(String option) {
         IRecommFactory bodyRecommendation = null;
         switch (option) {
-            case 0:
+            case "1": //Multitask
                 bodyRecommendation = new WalkWithFriends();
                 break;
 
-            case 1:  //Multitask
+            case "2":  //Shorter activity
                 bodyRecommendation = new Running();
                 break;
 
-            case 3:  //Shorter activity
+            case "3":  //Longer activity
                 bodyRecommendation = new Hiking();
                 break;
 
-            default:  //Longer activity
+            default:
                 System.out.println("Select an option for duration");
                 break;
         }
@@ -35,7 +39,9 @@ public class BodyActivityRecommFactory extends IRecommFactory {
     }
 
     @Override
-    public String returnRecommendation() {
+    public List<TVSeries> returnRecommendation() {
         return null;
     }
+
+
 }

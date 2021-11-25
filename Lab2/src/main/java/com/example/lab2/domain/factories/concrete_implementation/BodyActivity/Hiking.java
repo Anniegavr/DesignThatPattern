@@ -1,12 +1,14 @@
 package com.example.lab2.domain.factories.concrete_implementation.BodyActivity;
 
 import com.example.lab2.domain.factories.abstractions.IBodyActivity;
+import com.example.lab2.domain.factories.concrete_implementation.Watch.TVSeries;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,25 +31,9 @@ public class Hiking extends BodyActivityRecommFactory implements IBodyActivity {
     Long hikingId;
     String name;
     String duration;
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String genres) {
-        this.duration = genres;
-    }
 
     @Override
-    public String returnRecommendation(){
-        //some function to return data from dataset
-        return "Name: ...\nLevel of difficulty: ...";
+    public List<TVSeries> returnRecommendation(){
+        return "How about a hike along a series of touristic destinations in your region?\nOr a hike through the closest forest.";
     }
 }

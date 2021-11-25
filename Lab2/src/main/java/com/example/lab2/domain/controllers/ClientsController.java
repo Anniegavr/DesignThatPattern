@@ -1,37 +1,41 @@
 package com.example.lab2.domain.controllers;
 
 import com.example.lab2.domain.client.Client;
-import com.example.lab2.domain.dao.ClientRepository;
 import com.example.lab2.domain.payload.response.SearchClientResponse;
+import com.example.lab2.domain.security.jwt.AuthEntryPointJwt;
+import com.example.lab2.domain.security.services.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class ClientsController {
+    private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
-    private final ClientRepository clientRepository;
+    private final ClientService clientService;
 
-    /** Get information about all users **/
-    @GetMapping("/clients")
-    public ResponseEntity<List<Client>> getAllUsers() {
+    /**
+     * @return a list containing objects of type Owner to display all registered users
+     */
+    @GetMapping("/owners")
+    public ResponseEntity<?> getAllUsers() {
         try {
-            List<Client> users = new ArrayList<>(clientRepository.findAll());
-
+            List<Client> users = clientService.getAllUsers();
             if (users.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return ResponseEntity.status(204).body("No registered users");
             }
             return new ResponseEntity<>(users, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            logger.error("Couldn't retrieve information about all registered users");
+            return ResponseEntity.status(204).body("An unexpected error occurred");
         }
     }
 
@@ -41,69 +45,65 @@ public class ClientsController {
      *      * In return to the search request, this function returns a list of usernames (only).
      *      * If the one searching found the username they needed, they may proceed to use the /searchOwners/{username}
      *      * endpoint to get a full description of the specified user and its username.
-     * @param clientUsername
-     * @return
+     *
+     * @param ownerUsername - the searched user's possible username or a slice of it
+     * @return a ResponseEntity containing info about the user being searched, when found
      */
     @GetMapping("/searchAllOwners/{username}")
-    public ResponseEntity<?> getAllUsersByUsername(@PathVariable("username") String clientUsername) {
+    public ResponseEntity<?> getAllUsersByUsername(@PathVariable("username") String ownerUsername) {
         try {
-            List<Client> users = new ArrayList<>(clientRepository.findAllByUsernameContaining(clientUsername));
-
-            List<SearchAllClientsRequest> saoList = new ArrayList<>();
-            if (users.isEmpty()) {
+            SearchClientResponse users = clientService.getAllUsersByUsername(ownerUsername);
+            if (users.getUsersFound().isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            for (Client ow : users){
-                SearchAllClientsRequest sao = new SearchAllCleintsRequest(ow.getClientId(), ow.getUsername());
-                saoList.add(sao);
-            }
-
-            SearchClientResponse searchClientResponse = new SearchClientResponse();
-            searchClientResponse.setUsersFound(saoList);
-            return new ResponseEntity<>(searchClientResponse, HttpStatus.OK);
+            return new ResponseEntity<>(users, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            logger.error("Couldn't search all users matching the search' username");
+            return ResponseEntity.status(204).body("An unexpected error occurred");
         }
     }
 
 
-    /** Find user by their id **/
-    @GetMapping("/clients/{clientId}")
-    public ResponseEntity<Client> getUsersById(@PathVariable("clientId") long id) {
-        Optional<Client> userData = clientRepository.findById(id);
-
-        return userData.map(owner -> new ResponseEntity<>(owner, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    /**
+     * @param id of the owner being searched
+     * @return a ResponseEntity containing an object of type Owner with info about the user being searched, when found
+     */
+    @GetMapping("/owners/{ownerId}")
+    public ResponseEntity<Client> getUsersById(@PathVariable("ownerId") long id) {
+        return clientService.getUsersById(id).map(owner -> new ResponseEntity<>(owner, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /** This function returns a single user and all the information about them.
-     * In order to find a specific user, one must know the correct username. **/
-    @GetMapping("/searchClients/{username}")
+    /**
+     * Search user by their username. In order to find a specific user, one must know the correct username.
+     * @param clientUsername - the username by which the search is performed
+     * @return a single user and all the information about them.
+     */
+    @GetMapping("/searchOwners/{username}")
     public ResponseEntity<Client> getUserByUsername(@PathVariable("username") String clientUsername) {
-        Optional<Client> userData = clientRepository.findClientByUsername(clientUsername);
-
-        return userData.map(owner -> new ResponseEntity<>(owner, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return clientService.getUserByUsername(clientUsername).map(owner -> new ResponseEntity<>(owner, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /** Delete all users **/
-    @DeleteMapping("/clients")
-    public ResponseEntity<HttpStatus> deleteAllUsers() {
-        try {
-            clientRepository.deleteAll();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-        }
-
+    /**
+     * Request to clear the entire list of registered users
+     */
+    @DeleteMapping("/owners")
+    public void deleteAllUsers() {
+        clientService.deleteAllUsers();
     }
 
-    /** Delete user by their id **/
-    @DeleteMapping("/clients/{clientId}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("clientId") long id) {
+    /**
+     * Function to remove a user
+     * @param id of the user
+     * @return a ResponseEntity informing about the delete request status
+     */
+    @DeleteMapping("/owners/{ownerId}")
+    public ResponseEntity<?> deleteUser(@PathVariable("ownerId") long id) {
         try {
-            clientRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            clientService.deleteUser(id);
+            return ResponseEntity.status(200).body("Owner removed");
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            logger.error("Couldn't delete user with id " + id);
+            return ResponseEntity.status(417).body("An unexpected error occurred");
         }
     }
 }
