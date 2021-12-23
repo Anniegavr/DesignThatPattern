@@ -27,5 +27,17 @@ public class Player {
     public void addCorrectLetter(Character c){
         this.guessedLetters.add(c);
     }
+    
+    public void startGame(Long id){
+        String word = "some";
+        this.setGameOn(true);
+        this.setLives(6);
+        this.setHangCurrentState("");
+        this.setCurrentStateInformation("Ready\n");
+        this.setWordToBeGuessed(word);
+        final GameOn go = new GameOn(this);
+        changeState(go);
+        go.gameOn();
+    }
 
 }
