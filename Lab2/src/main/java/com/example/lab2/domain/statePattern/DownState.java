@@ -46,7 +46,27 @@ public class DownState extends State{
     public String gameLost() {
         player.setGameOn(false);
         player.setHangCurrentState("\n +---+\n |   |\n O   |\n/|\\  |\n/ \\  |\n     |\nTTTTTT");
-        player.setCurrentStateInformation("Game Over! 🙁\n"+"\nYou have 0 lives left\n"+player.getHangCurrentState()+"\nThe word was: "+player.getWordToBeGuessed());
+        player.setCurrentStateInformation(LostState(Player player){
+        super(player);
+    }
+
+    @Override
+    public String gameOn() {
+        return null;
+    }
+
+    @Override
+    public String gameWon() {
+        return null;
+    }
+
+    @Override
+    public String gameLost() {
+        player.setGameOn(false);
+        player.setHangCurrentState("\n +---+\n |   |\n O   |\n/|\\  |\n/ \\  |\n     |\nTTTTTT");
+        player.setCurrentStateInformation("You lost!");
+        return player.getCurrentStateInformation();
+    });
         return player.getCurrentStateInformation();
     }
 }
