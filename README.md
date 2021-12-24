@@ -151,3 +151,8 @@ The purpose of this facade is to outline and guide one through the steps of usin
 
 #### Conclusion
 Structural design patterns make it easier for one to explain the project classes, to come back to older projects or to share code projects with minimal need to go specifically through every single class. Structural design patterns allow a certain degree of abstraction and decoupling, which makes it easier for new functionalities to be added with little impact.
+
+#### Lab #3: Behavioral DP - Anastasia Gavrilita
+According to Refactoring.Guru, "Behavioral design patterns are concerned with algorithms and the assignment of responsibilities between objects". This laboratory work implements the State pattern, which enables a specific object alter its behavior as it's internal state changes.
+
+The theme of the lab is the Hangman game (check the domain.statePattern package). The game instantiates a new Player object. Once the game starts, the player enters the GameOn state. As the player types characters in order to guess the word, the program checks whether the input matches the word to be guessed' characters. If the input character is correct, the player is still in the GameOn state. Else, the player enters the DownState, which checks whether the player still has lives left or not. If the player has 0 lives left, he enters the LostState which takes care of ending the game. Else, the player goes back to the GameOn state, now with the hangman drawing progressing on the screen. If the player guesses all of the searched word's characters, it enters the WinState, which also takes care of ending the game.
