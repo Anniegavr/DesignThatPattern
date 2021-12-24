@@ -32,7 +32,7 @@ Check the UML diagram below for a better perspective on the project's structure 
 
 Although the used patterns are quite common and trivial, it's what was needed for the specific task they do. It's important to understand which pattern is necessarry for a specific task.
 
-#### Lab #2: Structural DP - Anastasia Gavrilita
+#### **Lab #2: Structural DP - Anastasia Gavrilita**
 #### **Intro**
 According to Refactoring.Guru, "Structural patterns explain how to assemble objects and classes into larger structures while keeping these structures flexible and efficient". Some of the most known structural DP are: adapter, bridge, composite, decorator, proxy, facade and flyweight.
 
@@ -42,6 +42,7 @@ The code above mainly applies the following structural DP: adapter, decorator an
 #### Adapter
 The adapter was created to enable database entities to read CSV datasets as database entities. Namely, I used datasets for the Anime and the TVSeries classes. The adapter package holds an abstract class called CSVHandler, that is extended by a concrete AnimeCSVHandler and TVSeriesCSVHandler. 
 
+```
 public abstract class CSVHandler {
     public static String TYPE = "text/csv";
 
@@ -52,9 +53,12 @@ public abstract class CSVHandler {
     public abstract List<?> parseCSV(InputStream is); //method being implemented
     
 }
+```
 
 The process of reading into CSV files is aided by the CSVService class, located within the security.services package. The trickiest step is to extract only the necessarry fields of the datasets into the concrete classess of the recommendation factories: Anime and TVSeries, because the datasets have more fields than the Anime and the TVSeries classes have.
 For example:
+
+```
 public class Anime{
   Long animeId;
   String name;
@@ -69,13 +73,16 @@ private Long animeId;
     private int rating;
     private int members;
 }
+```
 
 To solve this, I created  additional services: AnimeService and TVSeriesService classes, that extract and insert the necessary information into the Anime and the TVSeries instances.
 
+```
 List<Anime> matchAnimes = new ArrayList<>();
 for(AnimeDataset ad : matches){
     matchAnimes.add(new Anime(ad.getAnimeId(), ad.getName(), ad.getGenre()));
 }
+```
 
 More examples of adapting the needs can be seen throughout services and controllers.
 
@@ -84,6 +91,7 @@ The decorator patterns enables us to attach new functionalities to a class. In t
 
 domain.factories.concrete_implementation.recommendation_decorator:
 
+```
 public class RecommendationWithBuddy {
     private final RecommendationsRepository recommendationsRepository;
     private final Recommendation recommendation;
@@ -98,10 +106,12 @@ public class RecommendationWithBuddy {
         return getBuddyUsernames;
     }
 }
+```
 
 #### Facade
 A facade provides a simplified interface to a library, a framework, or any other complex set of classes. In this project, I used a well-defined facade within the facade package:
-  
+
+```
 public class ClientDialog {
     private final ClientDetailsServiceImpl clientDetailsService;
     private final ClientService clientService;
@@ -146,30 +156,32 @@ public class ClientDialog {
         }
     }
 }
+```
 
 The purpose of this facade is to outline and guide one through the steps of using the console app. Smaller facades are presented in services and controllers of this app.
 
-#### Conclusion
+#### **Conclusion**
 Structural design patterns make it easier for one to explain the project classes, to come back to older projects or to share code projects with minimal need to go specifically through every single class. Structural design patterns allow a certain degree of abstraction and decoupling, which makes it easier for new functionalities to be added with little impact.
 
-#### Lab #3: Behavioral DP - Anastasia Gavrilita
-#### Intro
+#### **Lab #3: Behavioral DP - Anastasia Gavrilita**
+#### **Intro**
 According to Refactoring.Guru, "Behavioral design patterns are concerned with algorithms and the assignment of responsibilities between objects". 
 
-#### Implementation
+#### **Implementation**
 This laboratory work implements the State pattern, which enables a specific object alter its behavior as it's internal state changes.
 
 The theme of the lab is the Hangman game (check the domain.statePattern package). The game instantiates a new Player object. Once the game starts, the player enters the GameOn state. As the player types characters in order to guess the word, the program checks whether the input matches the word to be guessed' characters. If the input character is correct, the player is still in the GameOn state. Else, the player enters the DownState, which checks whether the player still has lives left or not. If the player has 0 lives left, he enters the LostState which takes care of ending the game. Else, the player goes back to the GameOn state, now with the hangman drawing progressing on the screen. If the player guesses all of the searched word's characters, it enters the WinState, which also takes care of ending the game.
 
-#### Video demo:
+#### **Video demo:**
 https://watch.screencastify.com/v/puW9uqTk0dNWPNrEbG2W
 
-#### States' graphical representation ("other" = any other symbol)
+#### **States' graphical representation ("other" = any other symbol)**
 
 ![image](https://user-images.githubusercontent.com/56108881/147365596-7e33b6ae-63d9-407a-8bb7-6579b4f92007.png)
 
 The model state is coded in state.java:
 
+```
 abstract class State {
     Player player;
 
@@ -181,25 +193,25 @@ abstract class State {
     public abstract String gameWon();
     public abstract String gameLost();
 }
+```
 
+The player is the model meant to change its internal state (Player.java):
 
-The player is the model meant to change its internal state (Player.java)
-
+```
 public class Player {
     private State state;
     private boolean gameOn;
     private int lives;
-    private List<Character> guessedLetters = new ArrayList<Character>();
+    private List<String> guessedLetters = new ArrayList<String>();
     private String hangCurrentState;
     private String currentStateInformation;
     private String wordToBeGuessed;
     //  "\n +---+\n"+" |   |\n"+" O   |\n"+"/|\\  |\n"+"/ \\  |\n"+"     |\nTTTTTT"
-//more code
 }
-
+```
 
 The player's properties change as the states change.
 
-### Conclusion
+### **Conclusion**
 
 Behavioral design patterns can free the programers' hands, almost as if the code gets a mind of its own.
