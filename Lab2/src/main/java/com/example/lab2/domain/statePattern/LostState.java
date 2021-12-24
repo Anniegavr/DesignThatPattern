@@ -19,7 +19,9 @@ public class LostState extends State{
     public String gameLost() {
         player.setGameOn(false);
         player.setHangCurrentState("\n +---+\n |   |\n O   |\n/|\\  |\n/ \\  |\n     |\nTTTTTT");
+        System.out.println(player.getHangCurrentState());
         player.setCurrentStateInformation("You lost!");
+        System.out.println(player.getCurrentStateInformation()+"\nThe word was: "+player.getWordToBeGuessed());
         return player.getCurrentStateInformation();
     }
 }
