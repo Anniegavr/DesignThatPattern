@@ -182,7 +182,8 @@ abstract class State {
     public abstract String gameLost();
 }
 
-The player is the model meant to change its internal state.
+
+The player is the model meant to change its internal state (Player.java)
 
 public class Player {
     private State state;
@@ -193,10 +194,11 @@ public class Player {
     private String currentStateInformation;
     private String wordToBeGuessed;
     //  "\n +---+\n"+" |   |\n"+" O   |\n"+"/|\\  |\n"+"/ \\  |\n"+"     |\nTTTTTT"
-,,,
+//more code
 }
 
-The plyer's properties change as the states change.
+
+The player's properties change as the states change.
 
 ### Conclusion
 
