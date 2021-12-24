@@ -160,5 +160,6 @@ The theme of the lab is the Hangman game (check the domain.statePattern package)
 Video demo:
 https://watch.screencastify.com/v/puW9uqTk0dNWPNrEbG2W
 
-#### States graphical representation ("other" = any other symbol)
+#### States' graphical representation ("other" = any other symbol)
 
+![image](https://user-images.githubusercontent.com/56108881/147365596-7e33b6ae-63d9-407a-8bb7-6579b4f92007.png)
