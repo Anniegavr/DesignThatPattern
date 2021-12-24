@@ -153,13 +153,51 @@ The purpose of this facade is to outline and guide one through the steps of usin
 Structural design patterns make it easier for one to explain the project classes, to come back to older projects or to share code projects with minimal need to go specifically through every single class. Structural design patterns allow a certain degree of abstraction and decoupling, which makes it easier for new functionalities to be added with little impact.
 
 #### Lab #3: Behavioral DP - Anastasia Gavrilita
-According to Refactoring.Guru, "Behavioral design patterns are concerned with algorithms and the assignment of responsibilities between objects". This laboratory work implements the State pattern, which enables a specific object alter its behavior as it's internal state changes.
+#### Intro
+According to Refactoring.Guru, "Behavioral design patterns are concerned with algorithms and the assignment of responsibilities between objects". 
+
+#### Implementation
+This laboratory work implements the State pattern, which enables a specific object alter its behavior as it's internal state changes.
 
 The theme of the lab is the Hangman game (check the domain.statePattern package). The game instantiates a new Player object. Once the game starts, the player enters the GameOn state. As the player types characters in order to guess the word, the program checks whether the input matches the word to be guessed' characters. If the input character is correct, the player is still in the GameOn state. Else, the player enters the DownState, which checks whether the player still has lives left or not. If the player has 0 lives left, he enters the LostState which takes care of ending the game. Else, the player goes back to the GameOn state, now with the hangman drawing progressing on the screen. If the player guesses all of the searched word's characters, it enters the WinState, which also takes care of ending the game.
 
-Video demo:
+#### Video demo:
 https://watch.screencastify.com/v/puW9uqTk0dNWPNrEbG2W
 
 #### States' graphical representation ("other" = any other symbol)
 
 ![image](https://user-images.githubusercontent.com/56108881/147365596-7e33b6ae-63d9-407a-8bb7-6579b4f92007.png)
+
+The model state is coded in state.java:
+
+abstract class State {
+    Player player;
+
+    State(Player player) {
+        this.player = player;
+    }
+
+    public abstract String gameOn();
+    public abstract String gameWon();
+    public abstract String gameLost();
+}
+
+The player is the model meant to change its internal state.
+
+public class Player {
+    private State state;
+    private boolean gameOn;
+    private int lives;
+    private List<Character> guessedLetters = new ArrayList<Character>();
+    private String hangCurrentState;
+    private String currentStateInformation;
+    private String wordToBeGuessed;
+    //  "\n +---+\n"+" |   |\n"+" O   |\n"+"/|\\  |\n"+"/ \\  |\n"+"     |\nTTTTTT"
+,,,
+}
+
+The plyer's properties change as the states change.
+
+### Conclusion
+
+Behavioral design patterns can free the programers' hands, almost as if the code gets a mind of its own.
