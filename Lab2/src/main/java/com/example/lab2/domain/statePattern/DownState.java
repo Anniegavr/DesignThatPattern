@@ -9,30 +9,36 @@ public class DownState extends State{
     @Override
     public String gameOn() {
         player.setLives(player.getLives()-1);
+        System.out.println("Lives: "+player.getLives()+"\n");
         if(player.getLives() == 0){
-            gameLost();
-            return "";
+            return gameLost();
         }else if(player.getLives()==5){
             player.setHangCurrentState("\\n +---+\\n");
-            player.setCurrentStateInformation("You have "+player.getLives()+" lives left\n"+player.getGuessedLetters()+player.getHangCurrentState());
+            player.setCurrentStateInformation("You have "+player.getLives()+" lives left\n"+player.getHangCurrentState());
+            System.out.println(player.getCurrentStateInformation());
             return player.getCurrentStateInformation();
         }else if(player.getLives()==4){
             player.setHangCurrentState("\n +---+\n |   |\n");
-            player.setCurrentStateInformation("You have "+player.getLives()+" lives left\n"+player.getGuessedLetters()+player.getHangCurrentState());
+            player.setCurrentStateInformation("You have "+player.getLives()+" lives left\n"+player.getHangCurrentState());
+            System.out.println(player.getCurrentStateInformation());
             return player.getCurrentStateInformation();
         }else if(player.getLives()==3){
             player.setHangCurrentState("\n +---+\n |   |\n O   |\n");
-            player.setCurrentStateInformation("You have "+player.getLives()+" lives left\n"+player.getGuessedLetters()+player.getHangCurrentState());
+            player.setCurrentStateInformation("You have "+player.getLives()+" lives left\n"+player.getHangCurrentState());
+            System.out.println(player.getCurrentStateInformation());
             return player.getCurrentStateInformation();
         }else if(player.getLives()==2){
             player.setHangCurrentState("\n +---+\n |   |\n O   |\n/|\\  |\n");
-            player.setCurrentStateInformation("You have "+player.getLives()+" lives left\n"+player.getGuessedLetters()+player.getHangCurrentState());
+            player.setCurrentStateInformation("You have "+player.getLives()+" lives left\n"+player.getHangCurrentState());
+            System.out.println(player.getCurrentStateInformation());
             return player.getCurrentStateInformation();
         }else if(player.getLives()==1){
             player.setHangCurrentState("\n +---+\n |   |\n O   |\n/|\\  |\n/ \\  |\n");
-            player.setCurrentStateInformation("You have "+player.getLives()+" lives left\n"+player.getGuessedLetters()+player.getHangCurrentState());
+            player.setCurrentStateInformation("You have "+player.getLives()+" lives left\n"+player.getHangCurrentState());
+            System.out.println(player.getCurrentStateInformation());
             return player.getCurrentStateInformation();
         }else{
+            System.out.println("Error");
             return "Error";
         }
     }
